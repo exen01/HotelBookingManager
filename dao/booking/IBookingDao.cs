@@ -9,7 +9,7 @@ namespace HotelBookingManager.dao.booking
         void DeleteBookingById(int id);
         void UpdateBooking(Booking booking);
         List<Booking> GetAllBookings();
-        Booking GetBookingById(int id);
+        Booking? GetBookingById(int id);
         List<Booking> GetBookingsByClientId(int clientId);
         List<Booking> GetBookingsByRoomId(int roomId);
         List<Booking> GetBookingsByStatus(string status);

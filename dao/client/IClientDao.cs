@@ -9,6 +9,6 @@ namespace HotelBookingManager.dao.client
         void DeleteClientById(int id);
         void UpdateClient(Client client);
         List<Client> GetAllClients();
-        Client GetClientById(int id);
+        Client? GetClientById(int id);
     }
 }

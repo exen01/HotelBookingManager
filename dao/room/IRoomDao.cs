@@ -9,7 +9,7 @@ namespace HotelBookingManager.dao.room
         void DeleteRoomById(int id);
         void UpdateRoom(Room room);
         List<Room> GetAllRooms();
-        Room GetRoomById(int id);
+        Room? GetRoomById(int id);
         List<Room> GetRoomsByType(string type);
     }
 }
