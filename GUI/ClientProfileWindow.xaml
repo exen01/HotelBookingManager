@@ -1,0 +1,73 @@
+﻿<Window x:Class="HotelBookingManager.GUI.ClientProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:HotelBookingManager.GUI"
+        mc:Ignorable="d"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Создание нового профиля гостя" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:PackIcon Kind="Person" />
+            <StackPanel Orientation="Vertical">
+                <Label Content="Фамилиия Имя Отчество клиента" />
+                <TextBox ToolTip="Введите ФИО клиента" 
+                         Width="200" 
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         MaxLength="255"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:PackIcon Kind="AddressMarker" />
+            <StackPanel Orientation="Vertical">
+                <Label Content="Адрес клиента" />
+                <TextBox ToolTip="Введите адрес клиента" 
+                         Width="200" 
+                         AcceptsReturn="True" 
+                         TextWrapping="Wrap" 
+                         MaxLength="255" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:PackIcon Kind="Email" />
+            <StackPanel Orientation="Vertical">
+                <Label Grid.Row="0" Content="Электронная почта клиента" />
+                <TextBox ToolTip="Введите электронную почту клиента" 
+                         Width="200" 
+                         materialDesign:HintAssist.Hint="test@mail.com" 
+                         MaxLength="255"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:PackIcon Kind="Phone" />
+            <StackPanel Orientation="Vertical">
+                <Label Grid.Row="0" Content="Номер телефона клиента" />
+                <TextBox ToolTip="Введите номер телефона клиента" 
+                         Width="200" 
+                         materialDesign:HintAssist.Hint="+1-000-000-0000" 
+                         MaxLength="20"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Margin="5" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="CheckBold" Margin="0,0,2,0" />
+                    <TextBlock Text="Сохранить" Margin="2,0,0,0" />
+                </StackPanel>
+            </Button>
+            <Button Content="Отмена" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>

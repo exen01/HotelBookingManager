@@ -1,5 +1,6 @@
 ﻿using HotelBookingManager.dao.client;
 using HotelBookingManager.domain.dto;
+using HotelBookingManager.GUI;
 using HotelBookingManager.util.db;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,12 @@ namespace HotelBookingManager
             clientDataGrid.Columns[2].Header = "Адрес";
             clientDataGrid.Columns[3].Header = "E-mail";
             clientDataGrid.Columns[4].Header = "Телефон";
+        }
+
+        private void addClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClientProfileWindow clientProfileWindow = new ClientProfileWindow();
+            clientProfileWindow.Show();
         }
     }
 }
