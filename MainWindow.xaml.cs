@@ -55,5 +55,41 @@ namespace HotelBookingManager
                 clientDataGrid.ItemsSource = clientService.GetAllClients();
             }
         }
+
+        private void editClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (clientDataGrid.SelectedItem != null)
+            {
+                Client client = (Client)clientDataGrid.SelectedItem;
+                ClientCreateWindow clientProfileWindow = new ClientCreateWindow(false, client, clientService);
+                var result = clientProfileWindow.ShowDialog();
+
+                if (result == true)
+                {
+                    clientService.UpdateClient(client);
+                    clientDataGrid.ItemsSource = clientService.GetAllClients();
+                }
+            }
+        }
+
+        private void deleteClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (clientDataGrid.SelectedItem != null)
+            {
+                Client client = (Client)clientDataGrid.SelectedItem;
+                MessageBoxResult messageBoxResult = MessageBox.Show("Вы действительно хотите удалить запись?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    clientService.DeleteClientById(client.Id);
+                    clientDataGrid.ItemsSource = clientService.GetAllClients();
+                }
+            }
+        }
+
+        private void refreshClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<Client> clients = clientService.GetAllClients();
+            clientDataGrid.ItemsSource = clients;
+        }
     }
 }

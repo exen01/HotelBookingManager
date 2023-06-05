@@ -2,10 +2,8 @@
 using HotelBookingManager.domain.exception;
 using HotelBookingManager.service.client;
 using HotelBookingManager.util.validation;
-using System;
-using System.Reflection.PortableExecutable;
 using System.Windows;
-using WinRT.Interop;
+using System.Windows.Media;
 
 namespace HotelBookingManager.GUI
 {
@@ -74,6 +72,18 @@ namespace HotelBookingManager.GUI
             catch (ValidationException ex)
             {
                 MessageBox.Show(ex.UserMessage, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                clientNameInput.BorderBrush = new SolidColorBrush(Color.FromArgb(0x89, 0x00, 0x00, 0x00));
+                clientAddressInput.BorderBrush = new SolidColorBrush(Color.FromArgb(0x89, 0x00, 0x00, 0x00));
+
+                if (ex.Code == domain.constatnt.ExceptionCode.WRONG_CLIENT_NAME)
+                {
+                    clientNameInput.BorderBrush = Brushes.Red;
+                }
+                else if (ex.Code == domain.constatnt.ExceptionCode.WRONG_CLIENT_ADDRESS)
+                {
+                    clientAddressInput.BorderBrush = Brushes.Red;
+                }
             }
 
             return result;

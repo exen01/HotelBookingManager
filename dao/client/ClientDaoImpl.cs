@@ -130,7 +130,7 @@ namespace HotelBookingManager.dao.client
             if (connection.IsConnect())
             {
                 string query = "UPDATE client " +
-                    "SET name = @name, address = @address, email = @email, phone_number = @phone_number" +
+                    "SET name = @name, address = @address, email = @email, phone_number = @phone_number " +
                     "WHERE id = @id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 

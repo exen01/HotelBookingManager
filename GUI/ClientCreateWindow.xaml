@@ -23,7 +23,7 @@
             <StackPanel Orientation="Vertical">
                 <Label Content="Ф.И.О." />
                 <TextBox x:Name="clientNameInput"
-                         ToolTip="Введите ФИО клиента" 
+                         ToolTip="Введите Ф.И.О. клиента" 
                          Width="200" 
                          AcceptsReturn="True"
                          TextWrapping="Wrap"
