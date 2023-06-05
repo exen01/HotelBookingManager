@@ -33,8 +33,6 @@ namespace HotelBookingManager.dao.room
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
 
         /// <summary>
@@ -52,8 +50,6 @@ namespace HotelBookingManager.dao.room
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
 
         /// <summary>
@@ -87,7 +83,6 @@ namespace HotelBookingManager.dao.room
                 }
             }
 
-            connection.Close();
             return rooms;
         }
 
@@ -123,7 +118,6 @@ namespace HotelBookingManager.dao.room
                 }
             }
 
-            connection.Close();
             return room;
         }
 
@@ -162,7 +156,6 @@ namespace HotelBookingManager.dao.room
                 }
             }
 
-            connection.Close();
             return rooms;
         }
 
@@ -187,8 +180,6 @@ namespace HotelBookingManager.dao.room
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
     }
 }

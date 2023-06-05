@@ -1,6 +1,6 @@
 ﻿namespace HotelBookingManager.domain.dto
 {
-    internal class Client
+    public class Client
     {
         public int Id { get; set; }
         public string Name { get; set; }

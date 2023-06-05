@@ -1,21 +1,11 @@
 ﻿using HotelBookingManager.dao.client;
 using HotelBookingManager.domain.dto;
 using HotelBookingManager.GUI;
+using HotelBookingManager.service.client;
 using HotelBookingManager.util.db;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HotelBookingManager
 {
@@ -26,12 +16,12 @@ namespace HotelBookingManager
     {
         private DBConnection connection;
         private List<Client> clients;
-        private IClientDao clientDao;
+        private IClientService clientService;
 
         public MainWindow()
         {
             connection = DBConnection.Instance();
-            clientDao = new ClientDaoImpl(connection);
+            clientService = new ClientServiceImpl(new ClientDaoImpl(connection));
 
             InitializeComponent();
             InitializeForm();
@@ -39,7 +29,7 @@ namespace HotelBookingManager
 
         private void InitializeForm()
         {
-            clients = clientDao.GetAllClients();
+            clients = clientService.GetAllClients();
             clientDataGrid.ItemsSource = clients;
         }
 
@@ -54,8 +44,16 @@ namespace HotelBookingManager
 
         private void addClientButton_Click(object sender, RoutedEventArgs e)
         {
-            ClientProfileWindow clientProfileWindow = new ClientProfileWindow();
-            clientProfileWindow.Show();
+            Client client = new Client();
+
+            ClientCreateWindow clientProfileWindow = new ClientCreateWindow(true, client, clientService);
+            var result = clientProfileWindow.ShowDialog();
+
+            if (result == true)
+            {
+                clientService.AddClient(client);
+                clientDataGrid.ItemsSource = clientService.GetAllClients();
+            }
         }
     }
 }

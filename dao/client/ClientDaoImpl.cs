@@ -33,8 +33,6 @@ namespace HotelBookingManager.dao.client
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
 
         /// <summary>
@@ -52,8 +50,6 @@ namespace HotelBookingManager.dao.client
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
 
         /// <summary>
@@ -87,7 +83,6 @@ namespace HotelBookingManager.dao.client
                 }
             }
 
-            connection.Close();
             return clients;
         }
 
@@ -123,7 +118,6 @@ namespace HotelBookingManager.dao.client
                 }
             }
 
-            connection.Close();
             return client;
         }
 
@@ -148,8 +142,6 @@ namespace HotelBookingManager.dao.client
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
     }
 }

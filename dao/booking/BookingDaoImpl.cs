@@ -196,7 +196,6 @@ namespace HotelBookingManager.dao.booking
                 }
             }
 
-            connection.Close();
             return bookings;
         }
 
@@ -243,7 +242,6 @@ namespace HotelBookingManager.dao.booking
                 }
             }
 
-            connection.Close();
             return bookings;
         }
 
@@ -290,7 +288,6 @@ namespace HotelBookingManager.dao.booking
                 }
             }
 
-            connection.Close();
             return bookings;
         }
 
@@ -322,8 +319,6 @@ namespace HotelBookingManager.dao.booking
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
     }
 }
