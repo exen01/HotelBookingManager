@@ -9,7 +9,12 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Создание нового профиля гостя" Height="450" Width="800">
+        Title="Создание нового профиля гостя" 
+        Height="450"
+        Width="600"
+        MinHeight="450" 
+        MinWidth="600"
+        ResizeMode="CanResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

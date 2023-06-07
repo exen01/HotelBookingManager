@@ -5,10 +5,14 @@ using HotelBookingManager.GUI;
 using HotelBookingManager.service.client;
 using HotelBookingManager.service.room;
 using HotelBookingManager.util.db;
+using HotelBookingManager.util.statusConverter;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Automation.Text;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace HotelBookingManager
 {
@@ -114,11 +118,48 @@ namespace HotelBookingManager
         {
             roomDataGrid.Columns[0].Visibility = Visibility.Hidden;
             roomDataGrid.Columns[1].Header = "Номер";
-            roomDataGrid.Columns[2].Header = "Тип комнаты";
-            roomDataGrid.Columns[3].Header = "Стоимость (Сутки)";
-            roomDataGrid.Columns[4].Header = "Статус";
-            roomDataGrid.Columns[5].Header = "Описание";
-            roomDataGrid.Columns[5].Width = 300;
+            roomDataGrid.Columns[2].Visibility = Visibility.Hidden;
+            roomDataGrid.Columns[3].Header = "Тип";
+            roomDataGrid.Columns[4].Header = "Стоимость (Сутки)";
+            roomDataGrid.Columns[5].Header = "Статус";
+            roomDataGrid.Columns[6].Header = "Описание";
+            roomDataGrid.Columns[6].Width = 300;
+
+            ApplyCellStyle();
         }
+
+        private void roomDataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName == "Availability")
+            {
+                DataGridTextColumn column = e.Column as DataGridTextColumn;
+                column.Binding = new Binding("Availability")
+                {
+                    Converter = new StatusConverter()
+                };
+            }
+        }
+
+        private void ApplyCellStyle()
+        {
+            Style cellStyle = new Style(typeof(DataGridCell));
+
+            // Установите привязку фона ячейки к свойству Status
+            cellStyle.Setters.Add(new Setter(BackgroundProperty, new Binding("Availability")
+            {
+                Converter = new StatusToBackgroundConverter()
+            }));
+
+            cellStyle.Setters.Add(new Setter(VerticalContentAlignmentProperty, VerticalAlignment.Center));
+            cellStyle.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Center));
+            cellStyle.Setters.Add(new Setter(ForegroundProperty, Brushes.Black));
+
+
+            DataGridColumn column = roomDataGrid.Columns[5];
+            column.CellStyle = cellStyle;
+
+        }
+
+
     }
 }

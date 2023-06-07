@@ -63,7 +63,9 @@ namespace HotelBookingManager.dao.room
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, type_id, cost, availability, description, number FROM room";
+                string query = "SELECT r.id, r.type_id, r.cost, r.availability, r.description, r.number, t.name " +
+                    "FROM room r " +
+                    "LEFT JOIN room_type t ON r.type_id = t.id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
                 using (MySqlDataReader reader = command.ExecuteReader())
@@ -77,7 +79,8 @@ namespace HotelBookingManager.dao.room
                             Cost = reader.GetDecimal("cost"),
                             Availability = reader.GetInt32("availability"),
                             Description = reader.GetString("description"),
-                            Number = reader.GetInt32("number")
+                            Number = reader.GetInt32("number"),
+                            TypeName = reader.GetString("name"),
                         };
 
                         rooms.Add(room);
