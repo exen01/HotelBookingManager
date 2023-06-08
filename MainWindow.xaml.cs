@@ -1,15 +1,17 @@
 ﻿using HotelBookingManager.dao.client;
 using HotelBookingManager.dao.room;
+using HotelBookingManager.dao.roomType;
 using HotelBookingManager.domain.dto;
 using HotelBookingManager.GUI;
+using HotelBookingManager.GUI.room;
 using HotelBookingManager.service.client;
 using HotelBookingManager.service.room;
+using HotelBookingManager.service.roomType;
 using HotelBookingManager.util.db;
 using HotelBookingManager.util.statusConverter;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Automation.Text;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -27,12 +29,14 @@ namespace HotelBookingManager
         private List<Room> rooms;
         private IClientService clientService;
         private IRoomService roomService;
+        private IRoomTypeService roomTypeService;
 
         public MainWindow()
         {
             connection = DBConnection.Instance();
             clientService = new ClientServiceImpl(new ClientDaoImpl(connection));
             roomService = new RoomServiceImpl(new RoomDaoImpl(connection));
+            roomTypeService = new RoomTypeServiceImpl(new RoomTypeDaoImpl(connection));
 
             InitializeComponent();
             InitializeForm();
@@ -160,6 +164,53 @@ namespace HotelBookingManager
 
         }
 
+        private void refreshRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            refreshRoomList();
+        }
 
+        private void deleteRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (roomDataGrid.SelectedItem != null)
+            {
+                Room room = (Room)roomDataGrid.SelectedItem;
+                MessageBoxResult messageBoxResult = MessageBox.Show("Вы действительно хотите удалить запись?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    roomService.DeleteRoomById(room.Id);
+                    refreshRoomList();
+                }
+            }
+        }
+
+        private void addRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            Room room = new Room();
+
+            RoomCreateWindow roomCreateWindow = new RoomCreateWindow(true, room, roomTypeService);
+            bool? result = roomCreateWindow.ShowDialog();
+
+            if (result == true)
+            {
+                roomService.AddRoom(room);
+                refreshRoomList();
+            }
+        }
+
+        private void editRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (roomDataGrid.SelectedItem != null)
+            {
+                Room room = (Room)roomDataGrid.SelectedItem;
+                RoomCreateWindow roomCreateWindow = new RoomCreateWindow(false, room, roomTypeService);
+                bool? result = roomCreateWindow.ShowDialog();
+
+                if (result == true)
+                {
+                    roomService.UpdateRoom(room);
+                    refreshRoomList();
+                }
+            }
+        }
     }
 }

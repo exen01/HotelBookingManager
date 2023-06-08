@@ -1,11 +1,11 @@
 ﻿using HotelBookingManager.domain.dto;
 using System.Collections.Generic;
 
-namespace HotelBookingManager.dao.roomType
+namespace HotelBookingManager.service.roomType
 {
-    public interface IRoomTypeDao
+    public interface IRoomTypeService
     {
-        RoomType? GetRoomTypeById(int id);
+        RoomType GetRoomTypeById(int id);
         List<RoomType> GetAllRoomTypes();
     }
 }
