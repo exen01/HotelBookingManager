@@ -2,6 +2,7 @@
 using HotelBookingManager.util.db;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using System.Data;
 
 namespace HotelBookingManager.dao.booking
 {
@@ -22,7 +23,7 @@ namespace HotelBookingManager.dao.booking
         {
             if (connection.IsConnect())
             {
-                string query = "INSERT INTO booking(client_id, room_id, arrival_date, departure_date, " +
+                string query = "INSERT INTO booking(client_id, room_type_id, room_id, arrival_date, departure_date, " +
                     "duration_of_stay, additional_information, status, total_cost, payment_status, created_at) " +
                     "VALUES (@client_id, @room_id, @arrival_date, @departure_date, @duration_of_stay, " +
                     "@additional_information, @status, @total_cost, @payment_status, @created_at)";
@@ -41,8 +42,6 @@ namespace HotelBookingManager.dao.booking
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
 
         /// <summary>
@@ -60,8 +59,6 @@ namespace HotelBookingManager.dao.booking
 
                 command.ExecuteNonQuery();
             }
-
-            connection.Close();
         }
 
         /// <summary>
@@ -74,7 +71,7 @@ namespace HotelBookingManager.dao.booking
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, client_id, room_id, arrival_date, departure_date, " +
+                string query = "SELECT id, client_id, room_type_id, room_id, arrival_date, departure_date, " +
                     "duration_of_stay, additional_information, status, total_cost, payment_status, created_at " +
                     "FROM booking";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
@@ -83,18 +80,25 @@ namespace HotelBookingManager.dao.booking
                 {
                     while (reader.Read())
                     {
+                        int? roomId = null;
+                        if (!reader.IsDBNull("room_id"))
+                        {
+                            roomId = reader.GetInt32("room_id");
+                        }
+
                         Booking booking = new Booking()
                         {
                             Id = reader.GetInt32("id"),
                             ClientId = reader.GetInt32("client_id"),
-                            RoomId = reader.GetInt32("room_id"),
+                            RoomId = roomId,
+                            RoomTypeId = reader.GetInt32("room_type_id"),
                             ArrivalDate = reader.GetDateTime("arrival_date"),
                             DepartureDate = reader.GetDateTime("departure_date"),
                             DurationOfStay = reader.GetInt32("duration_of_stay"),
                             AdditionalInformation = reader.GetString("additional_information"),
-                            Status = reader.GetString("status"),
+                            Status = reader.GetInt32("status"),
                             TotalCost = reader.GetDecimal("total_cost"),
-                            PaymentStatus = reader.GetString("payment_status"),
+                            PaymentStatus = reader.GetInt32("payment_status"),
                             CreatedAt = reader.GetDateTime("created_at")
                         };
 
@@ -102,8 +106,6 @@ namespace HotelBookingManager.dao.booking
                     }
                 }
             }
-
-            connection.Close();
             return bookings;
         }
 
@@ -119,7 +121,7 @@ namespace HotelBookingManager.dao.booking
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, client_id, room_id, arrival_date, departure_date, " +
+                string query = "SELECT id, client_id, room_type_id, room_id, arrival_date, departure_date, " +
                     "duration_of_stay, additional_information, status, total_cost, payment_status, created_at " +
                     "FROM booking " +
                     "WHERE id = @id";
@@ -131,25 +133,30 @@ namespace HotelBookingManager.dao.booking
                 {
                     if (reader.Read())
                     {
+                        int? roomId = null;
+                        if (!reader.IsDBNull("room_id"))
+                        {
+                            roomId = reader.GetInt32("room_id");
+                        }
+
                         booking = new Booking()
                         {
                             Id = reader.GetInt32("id"),
                             ClientId = reader.GetInt32("client_id"),
-                            RoomId = reader.GetInt32("room_id"),
+                            RoomId = roomId,
+                            RoomTypeId = reader.GetInt32("room_type_id"),
                             ArrivalDate = reader.GetDateTime("arrival_date"),
                             DepartureDate = reader.GetDateTime("departure_date"),
                             DurationOfStay = reader.GetInt32("duration_of_stay"),
                             AdditionalInformation = reader.GetString("additional_information"),
-                            Status = reader.GetString("status"),
+                            Status = reader.GetInt32("status"),
                             TotalCost = reader.GetDecimal("total_cost"),
-                            PaymentStatus = reader.GetString("payment_status"),
+                            PaymentStatus = reader.GetInt32("payment_status"),
                             CreatedAt = reader.GetDateTime("created_at")
                         };
                     }
                 }
             }
-
-            connection.Close();
             return booking;
         }
 
@@ -164,7 +171,7 @@ namespace HotelBookingManager.dao.booking
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, client_id, room_id, arrival_date, departure_date, " +
+                string query = "SELECT id, client_id, room_type_id, room_id, arrival_date, departure_date, " +
                     "duration_of_stay, additional_information, status, total_cost, payment_status, created_at " +
                     "FROM booking " +
                     "WHERE client_id = @client_id";
@@ -176,18 +183,25 @@ namespace HotelBookingManager.dao.booking
                 {
                     while (reader.Read())
                     {
+                        int? roomId = null;
+                        if (!reader.IsDBNull("room_id"))
+                        {
+                            roomId = reader.GetInt32("room_id");
+                        }
+
                         Booking booking = new Booking()
                         {
                             Id = reader.GetInt32("id"),
                             ClientId = reader.GetInt32("client_id"),
-                            RoomId = reader.GetInt32("room_id"),
+                            RoomId = roomId,
+                            RoomTypeId = reader.GetInt32("room_type_id"),
                             ArrivalDate = reader.GetDateTime("arrival_date"),
                             DepartureDate = reader.GetDateTime("departure_date"),
                             DurationOfStay = reader.GetInt32("duration_of_stay"),
                             AdditionalInformation = reader.GetString("additional_information"),
-                            Status = reader.GetString("status"),
+                            Status = reader.GetInt32("status"),
                             TotalCost = reader.GetDecimal("total_cost"),
-                            PaymentStatus = reader.GetString("payment_status"),
+                            PaymentStatus = reader.GetInt32("payment_status"),
                             CreatedAt = reader.GetDateTime("created_at")
                         };
 
@@ -210,7 +224,7 @@ namespace HotelBookingManager.dao.booking
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, client_id, room_id, arrival_date, departure_date, " +
+                string query = "SELECT id, client_id, room_type_id, room_id, arrival_date, departure_date, " +
                     "duration_of_stay, additional_information, status, total_cost, payment_status, created_at " +
                     "FROM booking " +
                     "WHERE room_id = @room_id";
@@ -222,18 +236,25 @@ namespace HotelBookingManager.dao.booking
                 {
                     while (reader.Read())
                     {
+                        int? roomIdFromDb = null;
+                        if (!reader.IsDBNull("room_id"))
+                        {
+                            roomIdFromDb = reader.GetInt32("room_id");
+                        }
+
                         Booking booking = new Booking()
                         {
                             Id = reader.GetInt32("id"),
                             ClientId = reader.GetInt32("client_id"),
-                            RoomId = reader.GetInt32("room_id"),
+                            RoomId = roomIdFromDb,
+                            RoomTypeId = reader.GetInt32("room_type_id"),
                             ArrivalDate = reader.GetDateTime("arrival_date"),
                             DepartureDate = reader.GetDateTime("departure_date"),
                             DurationOfStay = reader.GetInt32("duration_of_stay"),
                             AdditionalInformation = reader.GetString("additional_information"),
-                            Status = reader.GetString("status"),
+                            Status = reader.GetInt32("status"),
                             TotalCost = reader.GetDecimal("total_cost"),
-                            PaymentStatus = reader.GetString("payment_status"),
+                            PaymentStatus = reader.GetInt32("payment_status"),
                             CreatedAt = reader.GetDateTime("created_at")
                         };
 
@@ -256,7 +277,7 @@ namespace HotelBookingManager.dao.booking
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, client_id, room_id, arrival_date, departure_date, " +
+                string query = "SELECT id, client_id, room_type_id, room_id, arrival_date, departure_date, " +
                     "duration_of_stay, additional_information, status, total_cost, payment_status, created_at " +
                     "FROM booking " +
                     "WHERE status LIKE @status";
@@ -268,18 +289,25 @@ namespace HotelBookingManager.dao.booking
                 {
                     while (reader.Read())
                     {
+                        int? roomId = null;
+                        if (!reader.IsDBNull("room_id"))
+                        {
+                            roomId = reader.GetInt32("room_id");
+                        }
+
                         Booking booking = new Booking()
                         {
                             Id = reader.GetInt32("id"),
                             ClientId = reader.GetInt32("client_id"),
-                            RoomId = reader.GetInt32("room_id"),
+                            RoomId = roomId,
+                            RoomTypeId = reader.GetInt32("room_type_id"),
                             ArrivalDate = reader.GetDateTime("arrival_date"),
                             DepartureDate = reader.GetDateTime("departure_date"),
                             DurationOfStay = reader.GetInt32("duration_of_stay"),
                             AdditionalInformation = reader.GetString("additional_information"),
-                            Status = reader.GetString("status"),
+                            Status = reader.GetInt32("status"),
                             TotalCost = reader.GetDecimal("total_cost"),
-                            PaymentStatus = reader.GetString("payment_status"),
+                            PaymentStatus = reader.GetInt32("payment_status"),
                             CreatedAt = reader.GetDateTime("created_at")
                         };
 
@@ -300,7 +328,7 @@ namespace HotelBookingManager.dao.booking
             if (connection.IsConnect())
             {
                 string query = "UPDATE booking " +
-                    "SET client_id = @client_id, room_id = @room_id, arrival_date = @arrival_date " +
+                    "SET client_id = @client_id, room_type_id = @room_type_id, room_id = @room_id, arrival_date = @arrival_date " +
                     "departure_date = @departure_date, duration_of_stay = @duration_of_stay, additional_information = @additional_information " +
                     "status = @status, total_cost = @total_cost, payment_status = @payment_status, created_at = @created_at " +
                     "WHERE id = @id";
@@ -308,6 +336,7 @@ namespace HotelBookingManager.dao.booking
 
                 command.Parameters.AddWithValue("@client_id", booking.ClientId);
                 command.Parameters.AddWithValue("@room_id", booking.RoomId);
+                command.Parameters.AddWithValue("@room_type_id", booking.RoomTypeId);
                 command.Parameters.AddWithValue("@arrival_date", booking.ArrivalDate);
                 command.Parameters.AddWithValue("@departure_date", booking.DepartureDate);
                 command.Parameters.AddWithValue("@duration_of_stay", booking.DurationOfStay);
