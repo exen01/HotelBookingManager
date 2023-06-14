@@ -127,6 +127,38 @@ namespace HotelBookingManager.dao.room
             return room;
         }
 
+        public Room? GetRoomByNumber(int number)
+        {
+            Room? room = null;
+
+            if (connection.IsConnect())
+            {
+                string query = "SELECT id, type_id, cost, availability, description, number FROM room " +
+                    "WHERE number = @number";
+                MySqlCommand command = new MySqlCommand(query, connection.Connection);
+
+                command.Parameters.AddWithValue("@number", number);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        room = new Room()
+                        {
+                            Id = reader.GetInt32("id"),
+                            TypeId = reader.GetInt32("type_id"),
+                            Cost = reader.GetDecimal("cost"),
+                            Availability = reader.GetInt32("availability"),
+                            Description = reader.GetString("description"),
+                            Number = reader.GetInt32("number")
+                        };
+                    }
+                }
+            }
+
+            return room;
+        }
+
         /// <summary>
         /// 
         /// </summary>

@@ -1,4 +1,5 @@
 ﻿using HotelBookingManager.domain.dto;
+using HotelBookingManager.service.room;
 using HotelBookingManager.service.roomType;
 using System.Collections.Generic;
 using System.Globalization;
@@ -6,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace HotelBookingManager.GUI.room
 {
@@ -16,15 +18,17 @@ namespace HotelBookingManager.GUI.room
     {
         private Room room;
         private IRoomTypeService roomTypeService;
+        private IRoomService roomService;
         private List<RoomType> roomTypes;
         private Dictionary<int, string> roomStatuses;
 
-        public RoomCreateWindow(bool isNewRoom, Room room, IRoomTypeService roomTypeService)
+        public RoomCreateWindow(bool isNewRoom, Room room, IRoomTypeService roomTypeService, IRoomService roomService)
         {
             InitializeComponent();
 
             this.room = room;
             this.roomTypeService = roomTypeService;
+            this.roomService = roomService;
             this.roomStatuses = new Dictionary<int, string>()
             {
                 {0, "Свободен"},
@@ -97,14 +101,34 @@ namespace HotelBookingManager.GUI.room
             room.Availability = (int)roomAvailabilityInput.SelectedValue;
             room.Description = roomDescriptionInput.Text;
 
-            DialogResult = true;
-            Close();
+            if (ValidateRoom(room))
+            {
+                DialogResult = true;
+                Close();
+            }
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
             Close();
+        }
+
+        private bool ValidateRoom(Room room)
+        {
+            bool result = false;
+
+            if (roomService.IsRoomNumberUnique(room.Number))
+            {
+                result = true;
+            }
+            else
+            {
+                MessageBox.Show("Комната с таким номером уже существует.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                roomNumberInput.BorderBrush = Brushes.Red;
+            }
+
+            return result;
         }
     }
 }

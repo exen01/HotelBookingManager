@@ -187,7 +187,7 @@ namespace HotelBookingManager
         {
             Room room = new Room();
 
-            RoomCreateWindow roomCreateWindow = new RoomCreateWindow(true, room, roomTypeService);
+            RoomCreateWindow roomCreateWindow = new RoomCreateWindow(true, room, roomTypeService, roomService);
             bool? result = roomCreateWindow.ShowDialog();
 
             if (result == true)
@@ -202,7 +202,7 @@ namespace HotelBookingManager
             if (roomDataGrid.SelectedItem != null)
             {
                 Room room = (Room)roomDataGrid.SelectedItem;
-                RoomCreateWindow roomCreateWindow = new RoomCreateWindow(false, room, roomTypeService);
+                RoomCreateWindow roomCreateWindow = new RoomCreateWindow(false, room, roomTypeService, roomService);
                 bool? result = roomCreateWindow.ShowDialog();
 
                 if (result == true)

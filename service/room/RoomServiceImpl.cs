@@ -39,6 +39,12 @@ namespace HotelBookingManager.service.room
             return result;
         }
 
+        public bool IsRoomNumberUnique(int number)
+        {
+            Room? existingRoom = roomDao.GetRoomByNumber(number);
+            return existingRoom == null;
+        }
+
         public void UpdateRoom(Room room)
         {
             roomDao.UpdateRoom(room);
