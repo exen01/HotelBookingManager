@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace HotelBookingManager.util.statusConverter
 {
-    internal class StatusConverter : IValueConverter
+    internal class RoomStatusConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

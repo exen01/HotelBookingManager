@@ -6,5 +6,6 @@ namespace HotelBookingManager.service.booking
     interface IBookingService
     {
         List<Booking> GetAllBookings();
+        void DeleteBookingById(int id);
     }
 }

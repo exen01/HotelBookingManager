@@ -14,6 +14,11 @@ namespace HotelBookingManager.service.booking
             this.bookingDao = bookingDao;
         }
 
+        public void DeleteBookingById(int id)
+        {
+            bookingDao.DeleteBookingById(id);
+        }
+
         public List<Booking> GetAllBookings()
         {
             return bookingDao.GetAllBookings();
