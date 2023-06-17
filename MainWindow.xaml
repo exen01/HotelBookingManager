@@ -47,7 +47,7 @@
                                 <TextBlock Text="Обновить"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="addBookingButton" HorizontalAlignment="Stretch" Margin="5px">
+                        <Button x:Name="addBookingButton" HorizontalAlignment="Stretch" Margin="5px" Click="addBookingButton_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Plus" Margin="0,0,2,0" />
                                 <TextBlock Text="Добавить"/>

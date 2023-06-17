@@ -4,6 +4,7 @@ using HotelBookingManager.dao.room;
 using HotelBookingManager.dao.roomType;
 using HotelBookingManager.domain.dto;
 using HotelBookingManager.GUI;
+using HotelBookingManager.GUI.booking;
 using HotelBookingManager.GUI.room;
 using HotelBookingManager.service.booking;
 using HotelBookingManager.service.client;
@@ -340,6 +341,13 @@ namespace HotelBookingManager
 
             DataGridColumn column = roomDataGrid.Columns[4];
             column.CellStyle = cellStyle;
+        }
+
+        private void addBookingButton_Click(object sender, RoutedEventArgs e)
+        {
+            BookingCreateWindow bookingCreateWindow = new BookingCreateWindow();
+            bool? result = bookingCreateWindow.ShowDialog();
+
         }
     }
 }

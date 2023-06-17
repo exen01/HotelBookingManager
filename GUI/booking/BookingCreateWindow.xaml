@@ -1,0 +1,155 @@
+﻿<Window x:Class="HotelBookingManager.GUI.booking.BookingCreateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:HotelBookingManager.GUI.booking"
+        mc:Ignorable="d"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Создание нового бронирования" 
+        Height="700"
+        Width="600"
+        MinHeight="700" 
+        MinWidth="600"
+        ResizeMode="CanResize">
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="Гость" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="clientInput"
+                  Grid.Column="1"
+                  Grid.Row="0"
+                  ToolTip="Выберете клиента"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"
+                  Width="300"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="1"  Content="Тип команты" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="roomTypeInput"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                  ToolTip="Выберете тип комнаты"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"
+                  Width="300"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="2"  Content="Комнта" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="roomInput"
+                  Grid.Column="1"
+                  Grid.Row="2"
+                  ToolTip="Выберете комнату"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"
+                  Width="300"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="3" Content="Дата приезда" VerticalContentAlignment="Center" />
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3">
+                <DatePicker x:Name="arrivalDateInput"
+                    ToolTip="Выберете дату прибытия"
+                    Width="145"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"/>
+                <materialDesign:TimePicker x:Name="arrivalDateTimeInput"
+                    Width="145"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <Label Grid.Column="0" Grid.Row="4" Content="Дата отъезда" VerticalContentAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4">
+                <DatePicker x:Name="departureDateInput"
+                    ToolTip="Выберете дату отбытия" 
+                    Width="145"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"/>
+                <materialDesign:TimePicker x:Name="departureDateTimeInput"
+                    Width="145"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <Label Grid.Column="0" Grid.Row="5" Content="Статус заявки" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="statusInput"
+                  Grid.Column="1"
+                  Grid.Row="5"
+                  ToolTip="Выберете статус бронирования"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"
+                  Width="300"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="6" Content="Оплата" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="paymentStatusInput"
+                  Grid.Column="1"
+                  Grid.Row="6"
+                  ToolTip="Выберете статус оплаты"
+                  IsEditable="True"
+                  IsTextSearchEnabled="True"
+                  Width="300"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="7" Content="Доп. информация" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="additionalInformationInput"
+                 Grid.Column="1"
+                 Grid.Row="7"
+                 Width="300"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Center"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap" 
+                 MaxLines="3"/>
+
+            <Label Grid.Column="0" Grid.Row="8" Content="Дней проживания" VerticalContentAlignment="Center" />
+            <Label Grid.Column="1" Grid.Row="8" x:Name="durationOfStayInput" HorizontalAlignment="Left" VerticalAlignment="Center" Content="10" />
+
+            <Label Grid.Column="0" Grid.Row="9" Content="Стоимость" VerticalContentAlignment="Center" />
+            <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal">
+                <Label x:Name="totalCostInput" HorizontalAlignment="Left" VerticalAlignment="Center" Content="1000.00" />
+                <materialDesign:PackIcon Kind="CurrencyRub" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="saveButton" Margin="5" Click="saveButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="CheckBold" Margin="0,0,2,0" />
+                    <TextBlock x:Name="saveButtonText" Text="Сохранить" Margin="2,0,0,0" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="cancelButton" Content="Отмена" Margin="5" Click="cancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
