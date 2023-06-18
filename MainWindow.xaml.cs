@@ -345,9 +345,26 @@ namespace HotelBookingManager
 
         private void addBookingButton_Click(object sender, RoutedEventArgs e)
         {
-            BookingCreateWindow bookingCreateWindow = new BookingCreateWindow();
+            Booking booking = new Booking();
+            BookingCreateWindow bookingCreateWindow = new BookingCreateWindow(true, booking, clientService, roomService, roomTypeService);
             bool? result = bookingCreateWindow.ShowDialog();
 
+        }
+
+        private void editBookingButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (bookingDataGrid.SelectedItem != null)
+            {
+                Booking booking = (Booking)bookingDataGrid.SelectedItem;
+                BookingCreateWindow bookingCreateWindow = new BookingCreateWindow(false, booking, clientService, roomService, roomTypeService);
+                bool? result = bookingCreateWindow.ShowDialog();
+
+                if (result == true)
+                {
+                    /*bookingService.Upda(room);
+                    refreshRoomList();*/
+                }
+            }
         }
     }
 }

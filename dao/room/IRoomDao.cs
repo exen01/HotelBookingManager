@@ -11,6 +11,6 @@ namespace HotelBookingManager.dao.room
         List<Room> GetAllRooms();
         Room? GetRoomById(int id);
         Room? GetRoomByNumber(int number);
-        List<Room> GetRoomsByType(string type);
+        List<Room> GetRoomsByTypeId(int typeId);
     }
 }

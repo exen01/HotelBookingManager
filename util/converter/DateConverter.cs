@@ -10,7 +10,7 @@ namespace HotelBookingManager.util.converter
         {
             if (value is DateTime date)
             {
-                return date.ToString("dd.MM.yyyy HH:mm");
+                return date.ToString("dd.MM.yyyy");
             }
 
             return string.Empty;

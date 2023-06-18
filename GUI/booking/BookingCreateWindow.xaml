@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:HotelBookingManager.GUI.booking"
         mc:Ignorable="d"
         TextOptions.TextFormattingMode="Ideal"
@@ -48,56 +49,56 @@
                   IsTextSearchEnabled="True"
                   Width="300"
                   HorizontalAlignment="Left"
-                  VerticalAlignment="Center"/>
+                  VerticalAlignment="Center"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"/>
 
             <Label Grid.Column="0" Grid.Row="1"  Content="Тип команты" VerticalContentAlignment="Center" />
             <ComboBox x:Name="roomTypeInput"
                   Grid.Column="1"
                   Grid.Row="1"
                   ToolTip="Выберете тип комнаты"
-                  IsEditable="True"
-                  IsTextSearchEnabled="True"
                   Width="300"
                   HorizontalAlignment="Left"
-                  VerticalAlignment="Center"/>
+                  VerticalAlignment="Center"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"
+                  SelectionChanged="roomTypeInput_SelectionChanged"/>
 
             <Label Grid.Column="0" Grid.Row="2"  Content="Комнта" VerticalContentAlignment="Center" />
-            <ComboBox x:Name="roomInput"
-                  Grid.Column="1"
-                  Grid.Row="2"
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
+                <ComboBox x:Name="roomInput"
                   ToolTip="Выберете комнату"
                   IsEditable="True"
                   IsTextSearchEnabled="True"
-                  Width="300"
+                  Width="215"
                   HorizontalAlignment="Left"
-                  VerticalAlignment="Center"/>
+                  VerticalAlignment="Center"
+                  DisplayMemberPath="Number"
+                  SelectedValuePath="Id"
+                  Margin="0,0,10,0"/>
+                <Label Content="Ожидает" VerticalAlignment="Center"/>
+                <CheckBox x:Name="isRoomNotAssigned" Checked="isRoomNotAssigned_CheckedChanged" Unchecked="isRoomNotAssigned_CheckedChanged"/>
+            </StackPanel>
 
             <Label Grid.Column="0" Grid.Row="3" Content="Дата приезда" VerticalContentAlignment="Center" />
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3">
                 <DatePicker x:Name="arrivalDateInput"
-                    ToolTip="Выберете дату прибытия"
-                    Width="145"
+                    ToolTip="Выберете дату приезда"
+                    Width="300"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Margin="0,0,10,0"/>
-                <materialDesign:TimePicker x:Name="arrivalDateTimeInput"
-                    Width="145"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"/>
+                    SelectedDateChanged="arrivalDateInput_SelectedDateChanged"/>
             </StackPanel>
 
             <Label Grid.Column="0" Grid.Row="4" Content="Дата отъезда" VerticalContentAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4">
                 <DatePicker x:Name="departureDateInput"
-                    ToolTip="Выберете дату отбытия" 
-                    Width="145"
+                    ToolTip="Выберете дату отъезда" 
+                    Width="300"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Margin="0,0,10,0"/>
-                <materialDesign:TimePicker x:Name="departureDateTimeInput"
-                    Width="145"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"/>
+                    SelectedDateChanged="departureDateInput_SelectedDateChanged"/>
             </StackPanel>
 
             <Label Grid.Column="0" Grid.Row="5" Content="Статус заявки" VerticalContentAlignment="Center" />
@@ -109,7 +110,9 @@
                   IsTextSearchEnabled="True"
                   Width="300"
                   HorizontalAlignment="Left"
-                  VerticalAlignment="Center"/>
+                  VerticalAlignment="Center"
+                  DisplayMemberPath="Value" 
+                  SelectedValuePath="Key"/>
 
             <Label Grid.Column="0" Grid.Row="6" Content="Оплата" VerticalContentAlignment="Center" />
             <ComboBox x:Name="paymentStatusInput"
@@ -120,7 +123,9 @@
                   IsTextSearchEnabled="True"
                   Width="300"
                   HorizontalAlignment="Left"
-                  VerticalAlignment="Center"/>
+                  VerticalAlignment="Center"
+                  DisplayMemberPath="Value" 
+                  SelectedValuePath="Key"/>
 
             <Label Grid.Column="0" Grid.Row="7" Content="Доп. информация" VerticalContentAlignment="Center"/>
             <TextBox x:Name="additionalInformationInput"
@@ -134,7 +139,7 @@
                  MaxLines="3"/>
 
             <Label Grid.Column="0" Grid.Row="8" Content="Дней проживания" VerticalContentAlignment="Center" />
-            <Label Grid.Column="1" Grid.Row="8" x:Name="durationOfStayInput" HorizontalAlignment="Left" VerticalAlignment="Center" Content="10" />
+            <Label Grid.Column="1" Grid.Row="8" x:Name="durationOfStayInput" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
             <Label Grid.Column="0" Grid.Row="9" Content="Стоимость" VerticalContentAlignment="Center" />
             <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal">

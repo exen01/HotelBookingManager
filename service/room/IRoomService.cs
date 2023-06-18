@@ -9,6 +9,7 @@ namespace HotelBookingManager.service.room
         void DeleteRoomById(int id);
         void UpdateRoom(Room room);
         List<Room> GetAllRooms();
+        List<Room> GetRoomsByTypeId(int typeId);
         Room GetRoomById(int id);
         bool IsRoomNumberUnique(int number);
     }

@@ -39,6 +39,11 @@ namespace HotelBookingManager.service.room
             return result;
         }
 
+        public List<Room> GetRoomsByTypeId(int typeId)
+        {
+            return roomDao.GetRoomsByTypeId(typeId);
+        }
+
         public bool IsRoomNumberUnique(int number)
         {
             Room? existingRoom = roomDao.GetRoomByNumber(number);

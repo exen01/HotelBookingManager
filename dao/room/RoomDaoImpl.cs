@@ -162,17 +162,17 @@ namespace HotelBookingManager.dao.room
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public List<Room> GetRoomsByType(string type)
+        public List<Room> GetRoomsByTypeId(int typeId)
         {
             List<Room> rooms = new List<Room>();
 
             if (connection.IsConnect())
             {
                 string query = "SELECT id, type_id, cost, availability, description, number FROM room " +
-                    "WHERE type LIKE @type";
+                    "WHERE type_id = @type_id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
-                command.Parameters.AddWithValue("@type", "%" + type + "%");
+                command.Parameters.AddWithValue("@type_id", typeId);
 
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
