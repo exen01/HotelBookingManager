@@ -64,7 +64,6 @@ namespace HotelBookingManager.GUI.room
         {
             roomNumberInput.Text = room.Number.ToString();
             roomTypeInput.SelectedValue = room.TypeId;
-            roomCostInput.Text = room.Cost.ToString(CultureInfo.InvariantCulture);
             roomAvailabilityInput.SelectedValue = room.Availability;
             roomDescriptionInput.Text = room.Description;
         }
@@ -97,7 +96,6 @@ namespace HotelBookingManager.GUI.room
         {
             room.Number = int.Parse(roomNumberInput.Text);
             room.TypeId = (int)roomTypeInput.SelectedValue;
-            room.Cost = decimal.Parse(roomCostInput.Text, NumberFormatInfo.InvariantInfo);
             room.Availability = (int)roomAvailabilityInput.SelectedValue;
             room.Description = roomDescriptionInput.Text;
 

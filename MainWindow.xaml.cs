@@ -87,10 +87,9 @@ namespace HotelBookingManager
             roomDataGrid.Columns[0].Visibility = Visibility.Hidden;
             roomDataGrid.Columns[1].Header = "Номер";
             roomDataGrid.Columns[2].Header = "Тип";
-            roomDataGrid.Columns[3].Header = "Стоимость (Сутки)";
-            roomDataGrid.Columns[4].Header = "Статус";
-            roomDataGrid.Columns[5].Header = "Описание";
-            roomDataGrid.Columns[5].Width = 300;
+            roomDataGrid.Columns[3].Header = "Статус";
+            roomDataGrid.Columns[4].Header = "Описание";
+            roomDataGrid.Columns[4].Width = 300;
 
             ApplyCellStyle();
         }
@@ -339,7 +338,7 @@ namespace HotelBookingManager
             cellStyle.Setters.Add(new Setter(ForegroundProperty, Brushes.Black));
 
 
-            DataGridColumn column = roomDataGrid.Columns[4];
+            DataGridColumn column = roomDataGrid.Columns[3];
             column.CellStyle = cellStyle;
         }
 

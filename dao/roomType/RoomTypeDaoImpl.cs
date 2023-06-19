@@ -20,7 +20,7 @@ namespace HotelBookingManager.dao.roomType
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, name FROM room_type";
+                string query = "SELECT id, name, cost FROM room_type";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
                 using (MySqlDataReader reader = command.ExecuteReader())
@@ -31,6 +31,7 @@ namespace HotelBookingManager.dao.roomType
                         {
                             Id = reader.GetInt32("id"),
                             Name = reader.GetString("name"),
+                            Cost = reader.GetDecimal("cost")
                         };
 
                         roomTypes.Add(roomType);
@@ -47,7 +48,7 @@ namespace HotelBookingManager.dao.roomType
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, name FROM room_type WHERE id = @id";
+                string query = "SELECT id, name, cost FROM room_type WHERE id = @id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
                 command.Parameters.AddWithValue("@id", id);
@@ -60,6 +61,7 @@ namespace HotelBookingManager.dao.roomType
                         {
                             Id = reader.GetInt32("id"),
                             Name = reader.GetString("name"),
+                            Cost = reader.GetDecimal("cost")
                         };
                     }
                 }

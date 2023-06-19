@@ -22,12 +22,11 @@ namespace HotelBookingManager.dao.room
         {
             if (connection.IsConnect())
             {
-                string query = "INSERT INTO room(type_id, cost, availability, description, number) " +
+                string query = "INSERT INTO room(type_id, availability, description, number) " +
                     "VALUES (@type_id, @cost, @availability, @description, @number)";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
                 command.Parameters.AddWithValue("@type", room.TypeId);
-                command.Parameters.AddWithValue("@cost", room.Cost);
                 command.Parameters.AddWithValue("@availability", room.Availability);
                 command.Parameters.AddWithValue("@description", room.Description);
                 command.Parameters.AddWithValue("@number", room.Number);
@@ -63,7 +62,7 @@ namespace HotelBookingManager.dao.room
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, type_id, cost, availability, description, number " +
+                string query = "SELECT id, type_id, availability, description, number " +
                     "FROM room";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
@@ -75,7 +74,6 @@ namespace HotelBookingManager.dao.room
                         {
                             Id = reader.GetInt32("id"),
                             TypeId = reader.GetInt32("type_id"),
-                            Cost = reader.GetDecimal("cost"),
                             Availability = reader.GetInt32("availability"),
                             Description = reader.GetString("description"),
                             Number = reader.GetInt32("number"),
@@ -101,7 +99,7 @@ namespace HotelBookingManager.dao.room
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, type_id, cost, availability, description, number FROM room " +
+                string query = "SELECT id, type_id, availability, description, number FROM room " +
                     "WHERE id = @id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
@@ -113,7 +111,6 @@ namespace HotelBookingManager.dao.room
                         {
                             Id = reader.GetInt32("id"),
                             TypeId = reader.GetInt32("type_id"),
-                            Cost = reader.GetDecimal("cost"),
                             Availability = reader.GetInt32("availability"),
                             Description = reader.GetString("description"),
                             Number = reader.GetInt32("number")
@@ -131,7 +128,7 @@ namespace HotelBookingManager.dao.room
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, type_id, cost, availability, description, number FROM room " +
+                string query = "SELECT id, type_id, availability, description, number FROM room " +
                     "WHERE number = @number";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
@@ -145,7 +142,6 @@ namespace HotelBookingManager.dao.room
                         {
                             Id = reader.GetInt32("id"),
                             TypeId = reader.GetInt32("type_id"),
-                            Cost = reader.GetDecimal("cost"),
                             Availability = reader.GetInt32("availability"),
                             Description = reader.GetString("description"),
                             Number = reader.GetInt32("number")
@@ -168,7 +164,7 @@ namespace HotelBookingManager.dao.room
 
             if (connection.IsConnect())
             {
-                string query = "SELECT id, type_id, cost, availability, description, number FROM room " +
+                string query = "SELECT id, type_id, availability, description, number FROM room " +
                     "WHERE type_id = @type_id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
@@ -182,7 +178,6 @@ namespace HotelBookingManager.dao.room
                         {
                             Id = reader.GetInt32("id"),
                             TypeId = reader.GetInt32("type_id"),
-                            Cost = reader.GetDecimal("cost"),
                             Availability = reader.GetInt32("availability"),
                             Description = reader.GetString("description"),
                             Number = reader.GetInt32("number")
@@ -205,12 +200,11 @@ namespace HotelBookingManager.dao.room
             if (connection.IsConnect())
             {
                 string query = "UPDATE room " +
-                    "SET type_id = @type_id, cost = @cost, availability = @availability, description = @description, number = @number " +
+                    "SET type_id = @type_id, availability = @availability, description = @description, number = @number " +
                     "WHERE id = @id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
                 command.Parameters.AddWithValue("@type_id", room.TypeId);
-                command.Parameters.AddWithValue("@cost", room.Cost);
                 command.Parameters.AddWithValue("@availability", room.Availability);
                 command.Parameters.AddWithValue("@description", room.Description);
                 command.Parameters.AddWithValue("@number", room.Number);
