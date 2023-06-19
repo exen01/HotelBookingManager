@@ -348,6 +348,11 @@ namespace HotelBookingManager
             BookingCreateWindow bookingCreateWindow = new BookingCreateWindow(true, booking, clientService, roomService, roomTypeService);
             bool? result = bookingCreateWindow.ShowDialog();
 
+            if (result == true)
+            {
+                bookingService.AddBooking(booking);
+                refreshBookingList();
+            }
         }
 
         private void editBookingButton_Click(object sender, RoutedEventArgs e)
@@ -360,8 +365,8 @@ namespace HotelBookingManager
 
                 if (result == true)
                 {
-                    /*bookingService.Upda(room);
-                    refreshRoomList();*/
+                    bookingService.UpdateBooking(booking);
+                    refreshBookingList();
                 }
             }
         }

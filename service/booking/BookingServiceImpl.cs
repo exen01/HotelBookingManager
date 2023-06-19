@@ -14,6 +14,11 @@ namespace HotelBookingManager.service.booking
             this.bookingDao = bookingDao;
         }
 
+        public void AddBooking(Booking booking)
+        {
+            bookingDao.AddBooking(booking);
+        }
+
         public void DeleteBookingById(int id)
         {
             bookingDao.DeleteBookingById(id);
@@ -22,6 +27,11 @@ namespace HotelBookingManager.service.booking
         public List<Booking> GetAllBookings()
         {
             return bookingDao.GetAllBookings();
+        }
+
+        public void UpdateBooking(Booking booking)
+        {
+            bookingDao.UpdateBooking(booking);
         }
     }
 }

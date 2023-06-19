@@ -143,19 +143,88 @@ namespace HotelBookingManager.GUI.booking
             return days;
         }
 
+        private decimal CalculateTotalCost()
+        {
+            decimal totalCost = 0;
+            RoomType selectedRoomType = (RoomType)roomTypeInput.SelectedItem;
+            decimal roomTypeCost = selectedRoomType.Cost;
+            bool result = int.TryParse(durationOfStayInput.Content.ToString(), out var days);
+
+            if (result)
+            {
+                totalCost = roomTypeCost * days;
+            }
+
+            return totalCost;
+        }
+
+        private void DisplayCosts()
+        {
+            totalCostInput.Content = CalculateTotalCost().ToString("N2");
+            dayCostInput.Content = (roomTypeInput.SelectedItem as RoomType).Cost.ToString("N2");
+        }
+
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
+            booking.ClientId = (int)clientInput.SelectedValue;
 
+            if ((bool)isRoomNotAssigned.IsChecked)
+            {
+                booking.RoomId = null;
+            }
+            else
+            {
+                booking.RoomId = (int?)roomInput.SelectedValue;
+            }
+
+            booking.RoomTypeId = (int)roomTypeInput.SelectedValue;
+
+            if (!arrivalDateInput.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Пожалуйста, введите дату приезда.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else
+            {
+                booking.ArrivalDate = arrivalDateInput.SelectedDate.Value;
+            }
+
+            if (!departureDateInput.SelectedDate.HasValue)
+            {
+                MessageBox.Show("Пожалуйста, введите дату отъезда.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else
+            {
+                booking.DepartureDate = departureDateInput.SelectedDate.Value;
+            }
+
+
+            booking.DurationOfStay = (int)durationOfStayInput.Content;
+            booking.AdditionalInformation = additionalInformationInput.Text;
+            booking.Status = (int)statusInput.SelectedValue;
+            booking.TotalCost = decimal.Parse(totalCostInput.Content.ToString());
+            booking.PaymentStatus = (int)paymentStatusInput.SelectedValue;
+
+            if (booking.CreatedAt == DateTime.MinValue)
+            {
+                booking.CreatedAt = DateTime.Now;
+            }
+
+            DialogResult = true;
+            Close();
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-
+            DialogResult = false;
+            Close();
         }
 
         private void roomTypeInput_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             InitializeRoomList();
+            DisplayCosts();
         }
 
         private void isRoomNotAssigned_CheckedChanged(object sender, RoutedEventArgs e)
@@ -199,6 +268,7 @@ namespace HotelBookingManager.GUI.booking
                 }
 
                 durationOfStayInput.Content = days;
+                DisplayCosts();
             }
         }
 
@@ -223,6 +293,7 @@ namespace HotelBookingManager.GUI.booking
                 }
 
                 durationOfStayInput.Content = days;
+                DisplayCosts();
             }
         }
     }

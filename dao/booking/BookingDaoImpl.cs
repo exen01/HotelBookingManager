@@ -25,11 +25,12 @@ namespace HotelBookingManager.dao.booking
             {
                 string query = "INSERT INTO booking(client_id, room_type_id, room_id, arrival_date, departure_date, " +
                     "duration_of_stay, additional_information, status, total_cost, payment_status, created_at) " +
-                    "VALUES (@client_id, @room_id, @arrival_date, @departure_date, @duration_of_stay, " +
+                    "VALUES (@client_id, @room_type_id, @room_id, @arrival_date, @departure_date, @duration_of_stay, " +
                     "@additional_information, @status, @total_cost, @payment_status, @created_at)";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
                 command.Parameters.AddWithValue("@client_id", booking.ClientId);
+                command.Parameters.AddWithValue("@room_type_id", booking.RoomTypeId);
                 command.Parameters.AddWithValue("@room_id", booking.RoomId);
                 command.Parameters.AddWithValue("@arrival_date", booking.ArrivalDate);
                 command.Parameters.AddWithValue("@departure_date", booking.DepartureDate);
@@ -328,8 +329,8 @@ namespace HotelBookingManager.dao.booking
             if (connection.IsConnect())
             {
                 string query = "UPDATE booking " +
-                    "SET client_id = @client_id, room_type_id = @room_type_id, room_id = @room_id, arrival_date = @arrival_date " +
-                    "departure_date = @departure_date, duration_of_stay = @duration_of_stay, additional_information = @additional_information " +
+                    "SET client_id = @client_id, room_type_id = @room_type_id, room_id = @room_id, arrival_date = @arrival_date, " +
+                    "departure_date = @departure_date, duration_of_stay = @duration_of_stay, additional_information = @additional_information, " +
                     "status = @status, total_cost = @total_cost, payment_status = @payment_status, created_at = @created_at " +
                     "WHERE id = @id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
@@ -345,6 +346,7 @@ namespace HotelBookingManager.dao.booking
                 command.Parameters.AddWithValue("@total_cost", booking.TotalCost);
                 command.Parameters.AddWithValue("@payment_status", booking.PaymentStatus);
                 command.Parameters.AddWithValue("@created_at", booking.CreatedAt);
+                command.Parameters.AddWithValue("@id", booking.Id);
 
                 command.ExecuteNonQuery();
             }

@@ -7,5 +7,7 @@ namespace HotelBookingManager.service.booking
     {
         List<Booking> GetAllBookings();
         void DeleteBookingById(int id);
+        void UpdateBooking(Booking booking);
+        void AddBooking(Booking booking);
     }
 }

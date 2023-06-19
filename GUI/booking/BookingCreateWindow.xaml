@@ -38,6 +38,7 @@
                 <RowDefinition Height="55" />
                 <RowDefinition Height="55" />
                 <RowDefinition Height="55" />
+                <RowDefinition Height="55" />
             </Grid.RowDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0" Content="Гость" VerticalContentAlignment="Center" />
@@ -139,11 +140,17 @@
                  MaxLines="3"/>
 
             <Label Grid.Column="0" Grid.Row="8" Content="Дней проживания" VerticalContentAlignment="Center" />
-            <Label Grid.Column="1" Grid.Row="8" x:Name="durationOfStayInput" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <Label Grid.Column="1" Grid.Row="8" x:Name="durationOfStayInput" HorizontalAlignment="Left" VerticalAlignment="Center" Content="0" />
 
-            <Label Grid.Column="0" Grid.Row="9" Content="Стоимость" VerticalContentAlignment="Center" />
+            <Label Grid.Column="0" Grid.Row="9" Content="Стоимость за сутки" VerticalContentAlignment="Center" />
             <StackPanel Grid.Column="1" Grid.Row="9" Orientation="Horizontal">
-                <Label x:Name="totalCostInput" HorizontalAlignment="Left" VerticalAlignment="Center" Content="1000.00" />
+                <Label x:Name="dayCostInput" HorizontalAlignment="Left" VerticalAlignment="Center" Content="0.00" />
+                <materialDesign:PackIcon Kind="CurrencyRub" VerticalAlignment="Center"/>
+            </StackPanel>
+            
+            <Label Grid.Column="0" Grid.Row="10" Content="Итого" VerticalContentAlignment="Center" />
+            <StackPanel Grid.Column="1" Grid.Row="10" Orientation="Horizontal">
+                <Label x:Name="totalCostInput" HorizontalAlignment="Left" VerticalAlignment="Center" Content="0.00" />
                 <materialDesign:PackIcon Kind="CurrencyRub" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
