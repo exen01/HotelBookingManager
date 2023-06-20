@@ -1,11 +1,15 @@
-﻿using HotelBookingManager.domain.dto;
+﻿using HotelBookingManager.domain.constatnt;
+using HotelBookingManager.domain.dto;
+using HotelBookingManager.domain.exception;
 using HotelBookingManager.service.client;
 using HotelBookingManager.service.room;
 using HotelBookingManager.service.roomType;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace HotelBookingManager.GUI.booking
 {
@@ -90,7 +94,7 @@ namespace HotelBookingManager.GUI.booking
         private void InitializeRoomList()
         {
             rooms = roomService.GetRoomsByTypeId((int)roomTypeInput.SelectedValue);
-            roomInput.ItemsSource = rooms;
+            roomInput.ItemsSource = rooms.Where(room => room.Availability == 0).ToList();
             roomInput.SelectedIndex = 0;
         }
 
@@ -166,9 +170,20 @@ namespace HotelBookingManager.GUI.booking
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                ValidateFields();
+            }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.UserMessage, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MarkInvalidFields(ex.Code);
+                return;
+            }
+
             booking.ClientId = (int)clientInput.SelectedValue;
 
-            if ((bool)isRoomNotAssigned.IsChecked)
+            if (isRoomNotAssigned.IsChecked.Value)
             {
                 booking.RoomId = null;
             }
@@ -178,28 +193,8 @@ namespace HotelBookingManager.GUI.booking
             }
 
             booking.RoomTypeId = (int)roomTypeInput.SelectedValue;
-
-            if (!arrivalDateInput.SelectedDate.HasValue)
-            {
-                MessageBox.Show("Пожалуйста, введите дату приезда.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else
-            {
-                booking.ArrivalDate = arrivalDateInput.SelectedDate.Value;
-            }
-
-            if (!departureDateInput.SelectedDate.HasValue)
-            {
-                MessageBox.Show("Пожалуйста, введите дату отъезда.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else
-            {
-                booking.DepartureDate = departureDateInput.SelectedDate.Value;
-            }
-
-
+            booking.ArrivalDate = arrivalDateInput.SelectedDate.Value;
+            booking.DepartureDate = departureDateInput.SelectedDate.Value;
             booking.DurationOfStay = (int)durationOfStayInput.Content;
             booking.AdditionalInformation = additionalInformationInput.Text;
             booking.Status = (int)statusInput.SelectedValue;
@@ -213,6 +208,58 @@ namespace HotelBookingManager.GUI.booking
 
             DialogResult = true;
             Close();
+        }
+
+        private void MarkInvalidFields(ExceptionCode code)
+        {
+            clientInput.BorderBrush = new SolidColorBrush(Color.FromArgb(0x89, 0x00, 0x00, 0x00));
+            roomInput.BorderBrush = new SolidColorBrush(Color.FromArgb(0x89, 0x00, 0x00, 0x00));
+            arrivalDateInput.BorderBrush = new SolidColorBrush(Color.FromArgb(0x89, 0x00, 0x00, 0x00));
+            departureDateInput.BorderBrush = new SolidColorBrush(Color.FromArgb(0x89, 0x00, 0x00, 0x00));
+
+            if (code == ExceptionCode.INVALID_CLIENT)
+            {
+                clientInput.BorderBrush = Brushes.Red;
+            }
+            else if (code == ExceptionCode.INVALID_ROOM)
+            {
+                roomInput.BorderBrush = Brushes.Red;
+            }
+            else if (code == ExceptionCode.INVALID_ARRIVAL_DATE)
+            {
+                arrivalDateInput.BorderBrush = Brushes.Red;
+            }
+            else if (code == ExceptionCode.INVALID_DEPARTURE_DATE)
+            {
+                departureDateInput.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void ValidateFields()
+        {
+            if (clientInput.SelectedValue == null)
+            {
+                throw new ValidationException(ExceptionCode.INVALID_CLIENT,
+                    "Несуществующий клиент. Пожалуйста, выберите клиента из списка или добавьте нового клиента.");
+            }
+
+            if (!isRoomNotAssigned.IsChecked.Value && roomInput.SelectedValue == null)
+            {
+                throw new ValidationException(ExceptionCode.INVALID_ROOM,
+                    "Несуществующая комната. Пожалуйста, выберите комнату из списка или добавьте новую комнату.");
+            }
+
+            if (!arrivalDateInput.SelectedDate.HasValue)
+            {
+                throw new ValidationException(ExceptionCode.INVALID_ARRIVAL_DATE,
+                    "Пожалуйста, введите дату приезда.");
+            }
+
+            if (!departureDateInput.SelectedDate.HasValue)
+            {
+                throw new ValidationException(ExceptionCode.INVALID_DEPARTURE_DATE,
+                    "Пожалуйста, введите дату отъезда.");
+            }
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
