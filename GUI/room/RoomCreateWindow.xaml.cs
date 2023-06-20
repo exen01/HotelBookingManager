@@ -2,7 +2,6 @@
 using HotelBookingManager.service.room;
 using HotelBookingManager.service.roomType;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,12 +20,14 @@ namespace HotelBookingManager.GUI.room
         private IRoomService roomService;
         private List<RoomType> roomTypes;
         private Dictionary<int, string> roomStatuses;
+        private bool isNewRoom;
 
         public RoomCreateWindow(bool isNewRoom, Room room, IRoomTypeService roomTypeService, IRoomService roomService)
         {
             InitializeComponent();
 
             this.room = room;
+            this.isNewRoom = isNewRoom;
             this.roomTypeService = roomTypeService;
             this.roomService = roomService;
             this.roomStatuses = new Dictionary<int, string>()
@@ -94,12 +95,21 @@ namespace HotelBookingManager.GUI.room
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            room.Number = int.Parse(roomNumberInput.Text);
+            int enteredRoomNumber = int.Parse(roomNumberInput.Text);
             room.TypeId = (int)roomTypeInput.SelectedValue;
             room.Availability = (int)roomAvailabilityInput.SelectedValue;
             room.Description = roomDescriptionInput.Text;
 
-            if (ValidateRoom(room))
+            if (isNewRoom || room.Number != enteredRoomNumber)
+            {
+                if (ValidateRoomNumber(enteredRoomNumber))
+                {
+                    room.Number = enteredRoomNumber;
+                    DialogResult = true;
+                    Close();
+                }
+            }
+            else
             {
                 DialogResult = true;
                 Close();
@@ -112,11 +122,11 @@ namespace HotelBookingManager.GUI.room
             Close();
         }
 
-        private bool ValidateRoom(Room room)
+        private bool ValidateRoomNumber(int number)
         {
             bool result = false;
 
-            if (roomService.IsRoomNumberUnique(room.Number))
+            if (roomService.IsRoomNumberUnique(number))
             {
                 result = true;
             }
