@@ -42,7 +42,7 @@ namespace HotelBookingManager
             clientService = new ClientServiceImpl(new ClientDaoImpl(connection));
             roomService = new RoomServiceImpl(new RoomDaoImpl(connection));
             roomTypeService = new RoomTypeServiceImpl(new RoomTypeDaoImpl(connection));
-            bookingService = new BookingServiceImpl(new BookingDaoImpl(connection));
+            bookingService = new BookingServiceImpl(new BookingDaoImpl(connection), new RoomDaoImpl(connection));
 
             InitializeComponent();
             InitializeForm();

@@ -94,7 +94,8 @@ namespace HotelBookingManager.GUI.booking
         private void InitializeRoomList()
         {
             rooms = roomService.GetRoomsByTypeId((int)roomTypeInput.SelectedValue);
-            roomInput.ItemsSource = rooms.Where(room => room.Availability == 0).ToList();
+            roomInput.ItemsSource = rooms.Where(room => room.Availability == 0 ||
+                room.Id == booking.RoomId).ToList();
             roomInput.SelectedIndex = 0;
         }
 
@@ -109,6 +110,7 @@ namespace HotelBookingManager.GUI.booking
             }
             else
             {
+                isRoomNotAssigned.IsChecked = false;
                 roomInput.SelectedValue = booking.RoomId;
             }
 

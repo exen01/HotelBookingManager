@@ -9,5 +9,6 @@ namespace HotelBookingManager.service.booking
         void DeleteBookingById(int id);
         void UpdateBooking(Booking booking);
         void AddBooking(Booking booking);
+        void ChangeRoomStatus(Booking booking);
     }
 }

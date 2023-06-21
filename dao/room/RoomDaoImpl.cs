@@ -103,6 +103,8 @@ namespace HotelBookingManager.dao.room
                     "WHERE id = @id";
                 MySqlCommand command = new MySqlCommand(query, connection.Connection);
 
+                command.Parameters.AddWithValue("@id", id);
+
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.Read())
