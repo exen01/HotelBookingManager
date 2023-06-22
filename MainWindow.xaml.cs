@@ -12,6 +12,7 @@ using HotelBookingManager.service.room;
 using HotelBookingManager.service.roomType;
 using HotelBookingManager.util.converter;
 using HotelBookingManager.util.db;
+using HotelBookingManager.util.roomAllocator;
 using HotelBookingManager.util.statusConverter;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace HotelBookingManager
 {
@@ -31,6 +33,8 @@ namespace HotelBookingManager
         private List<Client> clients;
         private List<Booking> bookings;
         private List<Room> rooms;
+        private RoomAllocator roomAllocator;
+        private DispatcherTimer dailyTimer;
         private IClientService clientService;
         private IRoomService roomService;
         private IRoomTypeService roomTypeService;
@@ -44,8 +48,23 @@ namespace HotelBookingManager
             roomTypeService = new RoomTypeServiceImpl(new RoomTypeDaoImpl(connection));
             bookingService = new BookingServiceImpl(new BookingDaoImpl(connection), new RoomDaoImpl(connection));
 
+            roomAllocator = new RoomAllocator(roomService, bookingService);
+
+            // Создаем и настраиваем DispatcherTimer
+            dailyTimer = new DispatcherTimer();
+            dailyTimer.Interval = TimeSpan.FromDays(1); // Интервал - 1 день
+            dailyTimer.Tick += DailyTimer_Tick;
+
+            // Запускаем таймер
+            dailyTimer.Start();
+
             InitializeComponent();
             InitializeForm();
+        }
+
+        private void DailyTimer_Tick(object? sender, EventArgs e)
+        {
+            roomAllocator.AllocateRooms();
         }
 
         private void InitializeForm()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HotelBookingManager.service.booking
 {
-    interface IBookingService
+    public interface IBookingService
     {
         List<Booking> GetAllBookings();
         void DeleteBookingById(int id);
